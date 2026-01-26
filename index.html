@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Quinielas El JJ 25</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b2d5c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0b2d5c;
+  color:#fff;
+}
+.container{padding:15px}
+h1,h2{text-align:center}
+input,textarea,button{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  font-size:16px;
+}
+button{
+  border:none;
+  font-weight:bold;
+  border-radius:6px;
+}
+.btn-add{background:#2ecc71}
+.btn-procesar{background:#3498db}
+.btn-jornada{background:#f1c40f;color:#000}
+.btn-borrar{background:#e74c3c}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  color:#000;
+  margin-top:10px;
+}
+th,td{
+  border:1px solid #ccc;
+  padding:5px;
+  text-align:center;
+  font-size:14px;
+}
+th{background:#eee}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>Quinielas El JJ 25</h1>
+
+<h2>Resultados oficiales (9)</h2>
+<input id="oficiales" placeholder="Ejemplo: LEVVLVVEL" maxlength="9">
+
+<h2>Pegar mensaje de WhatsApp</h2>
+<textarea id="mensaje" rows="7" placeholder="Nombre
+Partido 1 L
+Partido 2 E
+..."></textarea>
+
+<button class="btn-add" onclick="agregarJugador()">➕ Agregar jugador</button>
+<button class="btn-procesar" onclick="procesar()">✅ Procesar resultados</button>
+<button class="btn-jornada" onclick="nuevaJornada()">🔁 Nueva jornada</button>
+<button class="btn-borrar" onclick="borrarTodo()">🗑️ Borrar todo</button>
+
+<h2>Ranking</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Jugador</th>
+<th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
+<th>P6</th><th>P7</th><th>P8</th><th>P9</th>
+<th>Puntos</th>
+</tr>
+</thead>
+<tbody id="tabla"></tbody>
+</table>
+
+</div>
+
+<script>
+let jugadores = JSON.parse(localStorage.getItem("jugadores")) || [];
+
+function guardar(){
+  localStorage.setItem("jugadores", JSON.stringify(jugadores));
+}
+
+function limpiarLEV(texto){
+  const lineas = texto.split('\n');
+  const resultados = [];
+
+  for (let linea of lineas) {
+   const match = linea.match(/[:→]\s*([LEV])/i);
+    if (match) resultados.push(match[1].toUpperCase());
+  }
+  return resultados.slice(0,9);
+}
+
+function agregarJugador(){
+  const texto = document.getElementById("mensaje").value.trim();
+  if(!texto) return alert("Pega el mensaje");
+
+  const lineas = texto.split("\n");
+  const nombre = lineas[0].trim();
+  const picks = limpiarLEV(texto);
+
+  if(picks.length !== 9) return alert("Deben ser 9 resultados");
+
+  jugadores.push({nombre,picks,puntos:0});
+  guardar();
+  document.getElementById("mensaje").value="";
+  render();
+}
+
+function procesar(){
+  const oficiales = document.getElementById("oficiales").value
+    .toUpperCase()
+    .replace(/[^LEV]/g,"")
+    .split("");
+
+  if(oficiales.length !== 9)
+    return alert("Resultados oficiales incompletos");
+
+  jugadores.forEach(j=>{
+    j.puntos = 0;
+    j.picks.forEach((p,i)=>{
+      if(p === oficiales[i]) j.puntos++;
+    });
+  });
+
+  jugadores.sort((a,b)=>b.puntos-a.puntos);
+  guardar();
+  render();
+}
+
+function nuevaJornada(){
+  if(!confirm("¿Iniciar nueva jornada?")) return;
+  jugadores = [];
+  guardar();
+  document.getElementById("oficiales").value="";
+  render();
+}
+
+function borrarTodo(){
+  if(!confirm("⚠️ Esto borra TODO. ¿Seguro?")) return;
+  localStorage.clear();
+  jugadores = [];
+  document.getElementById("oficiales").value="";
+  render();
+}
+
+function render(){
+  const t = document.getElementById("tabla");
+  t.innerHTML="";
+  jugadores.forEach((j,i)=>{
+    t.innerHTML += `
+      <tr>
+        <td>${i+1}</td>
+        <td>${j.nombre}</td>
+        ${j.picks.map(p=>`<td>${p}</td>`).join("")}
+        <td>${j.puntos}</td>
+      </tr>`;
+  });
+}
+
+render();
+
+// Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+
+</body>
+</html>
