@@ -2,184 +2,281 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Quinielas El JJ 25</title>
-
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0b2d5c">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiniela JJ 25</title>
 
 <style>
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0b2d5c;
-  color:#fff;
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(#0b132b,#020617);
+    color:#fff;
+    padding:10px;
 }
-.container{padding:15px}
-h1,h2{text-align:center}
-input,textarea,button{
-  width:100%;
-  padding:10px;
-  margin-bottom:10px;
-  font-size:16px;
+header{
+    text-align:center;
 }
-button{
-  border:none;
-  font-weight:bold;
-  border-radius:6px;
+header img{
+    width:130px;
+    margin-bottom:5px;
 }
-.btn-add{background:#2ecc71}
-.btn-procesar{background:#3498db}
-.btn-jornada{background:#f1c40f;color:#000}
-.btn-borrar{background:#e74c3c}
-
+.partido{
+    background:#1c2541;
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+.equipo{
+    width:30%;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.equipo img{
+    width:28px;
+}
+.botones{
+    display:flex;
+    gap:6px;
+}
+.btn{
+    padding:10px 14px;
+    border:none;
+    border-radius:8px;
+    background:#ccc;
+    font-weight:bold;
+}
+.btn.activo{
+    background:#2ecc71;
+    color:#000;
+}
+#enviar{
+    width:100%;
+    padding:16px;
+    background:#2ecc71;
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    margin:15px 0;
+}
 table{
-  width:100%;
-  border-collapse:collapse;
-  background:#fff;
-  color:#000;
-  margin-top:10px;
+    width:100%;
+    border-collapse:collapse;
 }
 th,td{
-  border:1px solid #ccc;
-  padding:5px;
-  text-align:center;
-  font-size:14px;
+    border:1px solid #444;
+    padding:8px;
+    text-align:center;
 }
-th{background:#eee}
+.pendiente{color:#f1c40f;font-weight:bold;}
+.pagado{color:#2ecc71;font-weight:bold;}
 </style>
 </head>
 
 <body>
-<div class="container">
 
-<h1>Quinielas El JJ 25</h1>
+<header>
+    <img src="logo.jpg">
+    <h2>⚽ QUINIELA JJ 25 ⚽</h2>
+</header>
 
-<h2>Resultados oficiales (9)</h2>
-<input id="oficiales" placeholder="Ejemplo: LEVVLVVEL" maxlength="9">
-
-<h2>Pegar mensaje de WhatsApp</h2>
-<textarea id="mensaje" rows="7" placeholder="Nombre
-Partido 1 L
-Partido 2 E
-..."></textarea>
-
-<button class="btn-add" onclick="agregarJugador()">➕ Agregar jugador</button>
-<button class="btn-procesar" onclick="procesar()">✅ Procesar resultados</button>
-<button class="btn-jornada" onclick="nuevaJornada()">🔁 Nueva jornada</button>
-<button class="btn-borrar" onclick="borrarTodo()">🗑️ Borrar todo</button>
-
-<h2>Ranking</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Jugador</th>
-<th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
-<th>P6</th><th>P7</th><th>P8</th><th>P9</th>
-<th>Puntos</th>
-</tr>
-</thead>
-<tbody id="tabla"></tbody>
-</table>
-
+<!-- PARTIDO 1 -->
+<div class="partido fila">
+  <div class="equipo">
+    <img src="./monterrey.png" alt="Monterrey">
+    <span>Monterrey</span>
+  </div>
+  <div class="botones">
+    <button class="btn">L</button>
+    <button class="btn">E</button>
+    <button class="btn">V</button>
+  </div>
+  <div class="equipo">
+    <span>Pachuca</span>
+    <img src="./pachuca.png" alt="Pachuca">
+  </div>
 </div>
 
+<!-- PARTIDO 2 -->
+<div class="partido fila">
+  <div class="equipo">
+    <img src="./puebla.png" alt="Puebla">
+    <span>Puebla</span>
+  </div>
+  <div class="botones">
+    <button class="btn">L</button>
+    <button class="btn">E</button>
+    <button class="btn">V</button>
+  </div>
+  <div class="equipo">
+    <span>Necaxa</span>
+    <img src="./necaxa.png" alt="Necaxa">
+  </div>
+</div>
+
+<!-- PARTIDO 3 -->
+<div class="partido fila">
+  <div class="equipo">
+    <img src="./juarez.png" alt="Juárez">
+    <span>Juárez</span>
+  </div>
+  <div class="botones">
+    <button class="btn">L</button>
+    <button class="btn">E</button>
+    <button class="btn">V</button>
+  </div>
+  <div class="equipo">
+    <span>Mazatlán</span>
+    <img src="./mazatlan.png" alt="Mazatlán">
+  </div>
+</div>
+
+<!-- PARTIDO 4 -->
+<div class="partido fila">
+  <div class="equipo">
+    <img src="./toluca.png" alt="Toluca">
+    <span>Toluca</span>
+  </div>
+  <div class="botones">
+    <button class="btn">L</button>
+    <button class="btn">E</button>
+    <button class="btn">V</button>
+  </div>
+  <div class="equipo">
+    <span>Tigres</span>
+    <img src="./tigres.png" alt="Tigres">
+  </div>
+</div>
+
+<!-- PARTIDO 5 -->
+<div class="partido fila">
+  <div class="equipo">
+    <img src="./america.png" alt="América">
+    <span>América</span>
+  </div>
+  <div class="botones">
+    <button class="btn">L</button>
+    <button class="btn">E</button>
+    <button class="btn">V</button>
+  </div>
+  <div class="equipo">
+    <span>Atlas</span>
+    <img src="./atlas.png" alt="Atlas">
+  </div>
+</div>
+
+<!-- PARTIDO 6 -->
+<div class="partido fila">
+  <div class="equipo">
+    <img src="./santos.png" alt="Santos">
+    <span>Santos</span>
+  </div>
+  <div class="botones">
+    <button class="btn">L</button>
+    <button class="btn">E</button>
+    <button class="btn">V</button>
+  </div>
+  <div class="equipo">
+    <span>Querétaro</span>
+    <img src="./queretaro.png" alt="Querétaro">
+  </div>
+</div>
+
+<!-- PARTIDO 7 -->
+<div class="partido fila">
+  <div class="equipo">
+    <img src="./tijuana.png" alt="Tijuana">
+    <span>Tijuana</span>
+  </div>
+  <div class="botones">
+    <button class="btn">L</button>
+    <button class="btn">E</button>
+    <button class="btn">V</button>
+  </div>
+  <div class="equipo">
+  <img src="atleticosl.png" alt="Atl. San Luis">
+  <span>San Luis</span>
+</div>
+</div>
+
+<!-- PARTIDO 8 -->
+<div class="partido fila">
+  <div class="equipo">
+    <img src="./pumas.png" alt="Pumas">
+    <span>Pumas</span>
+  </div>
+  <div class="botones">
+    <button class="btn">L</button>
+    <button class="btn">E</button>
+    <button class="btn">V</button>
+  </div>
+  <div class="equipo">
+    <span>Cruz Azul</span>
+    <img src="./cruzazul.png" alt="Cruz Azul">
+  </div>
+</div>
+
+<!-- PARTIDO 9 -->
+<div class="partido fila">
+  <div class="equipo">
+    <img src="./leon.png" alt="León">
+    <span>León</span>
+  </div>
+  <div class="botones">
+    <button class="btn">L</button>
+    <button class="btn">E</button>
+    <button class="btn">V</button>
+  </div>
+  <div class="equipo">
+    <span>Chivas</span>
+    <img src="./guadalajara.png" alt="Chivas">
+  </div>
+</div>
+<button id="enviar">📲 Enviar quiniela por WhatsApp</button>
 <script>
-let jugadores = JSON.parse(localStorage.getItem("jugadores")) || [];
+const partidos = document.querySelectorAll('.fila');
 
-function guardar(){
-  localStorage.setItem("jugadores", JSON.stringify(jugadores));
-}
+partidos.forEach((fila, i) => {
+    const botones = fila.querySelectorAll('.btn');
 
-function limpiarLEV(texto){
-  const lineas = texto.split('\n');
-  const resultados = [];
-
-  for (let linea of lineas) {
-   const match = linea.match(/[:→]\s*([LEV])/i);
-    if (match) resultados.push(match[1].toUpperCase());
-  }
-  return resultados.slice(0,9);
-}
-
-function agregarJugador(){
-  const texto = document.getElementById("mensaje").value.trim();
-  if(!texto) return alert("Pega el mensaje");
-
-  const lineas = texto.split("\n");
-  const nombre = lineas[0].trim();
-  const picks = limpiarLEV(texto);
-
-  if(picks.length !== 9) return alert("Deben ser 9 resultados");
-
-  jugadores.push({nombre,picks,puntos:0});
-  guardar();
-  document.getElementById("mensaje").value="";
-  render();
-}
-
-function procesar(){
-  const oficiales = document.getElementById("oficiales").value
-    .toUpperCase()
-    .replace(/[^LEV]/g,"")
-    .split("");
-
-  if(oficiales.length !== 9)
-    return alert("Resultados oficiales incompletos");
-
-  jugadores.forEach(j=>{
-    j.puntos = 0;
-    j.picks.forEach((p,i)=>{
-      if(p === oficiales[i]) j.puntos++;
+    botones.forEach(btn => {
+        btn.addEventListener('click', () => {
+            botones.forEach(b => b.classList.remove('activo'));
+            btn.classList.add('activo');
+        });
     });
-  });
+});
 
-  jugadores.sort((a,b)=>b.puntos-a.puntos);
-  guardar();
-  render();
-}
+document.getElementById('enviar').addEventListener('click', () => {
+    let mensaje = '⚽ QUINIELA JJ 25 ⚽%0A%0A';
 
-function nuevaJornada(){
-  if(!confirm("¿Iniciar nueva jornada?")) return;
-  jugadores = [];
-  guardar();
-  document.getElementById("oficiales").value="";
-  render();
-}
+    let incompletos = false;
 
-function borrarTodo(){
-  if(!confirm("⚠️ Esto borra TODO. ¿Seguro?")) return;
-  localStorage.clear();
-  jugadores = [];
-  document.getElementById("oficiales").value="";
-  render();
-}
+    partidos.forEach((fila, i) => {
+        const equipos = fila.querySelectorAll('.equipo');
+        const seleccionado = fila.querySelector('.btn.activo');
 
-function render(){
-  const t = document.getElementById("tabla");
-  t.innerHTML="";
-  jugadores.forEach((j,i)=>{
-    t.innerHTML += `
-      <tr>
-        <td>${i+1}</td>
-        <td>${j.nombre}</td>
-        ${j.picks.map(p=>`<td>${p}</td>`).join("")}
-        <td>${j.puntos}</td>
-      </tr>`;
-  });
-}
+        if (!seleccionado) {
+            incompletos = true;
+            return;
+        }
 
-render();
+        mensaje += `${i+1}. ${equipos[0].innerText.trim()} vs ${equipos[1].innerText.trim()} → ${seleccionado.innerText}%0A`;
+    });
 
-// Service Worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
+    if (incompletos) {
+        alert('❌ Completa todos los partidos');
+        return;
+    }
+
+    const telefono = '522204380878'; // 52 + número
+    const url = `https://wa.me/${telefono}?text=${mensaje}`;
+
+    window.open(url, '_blank');
+});
 </script>
 
 </body>
