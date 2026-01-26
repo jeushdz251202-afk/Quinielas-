@@ -1,0 +1,10 @@
+{
+  "name": "Quinielas El JJ 25",
+  "short_name": "Quinielas JJ",
+  "start_url": "quinielas.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "orientation": "portrait",
+  "icons": []
+}
